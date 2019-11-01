@@ -1,41 +1,34 @@
-import ReactDOM from "react-dom";
 import React, { useState } from "react";
+import ReactDOM from "react-dom";
 
-const History = props => {
-    if (props.allClicks.length === 0) {
-        return <div>the app is used by pressing the buttons</div>;
-    }
+const App = () => {
+    // save clicks of each button to own state
+    const [good, setGood] = useState(0);
+    const [neutral, setNeutral] = useState(0);
+    const [bad, setBad] = useState(0);
 
-    return <div>button press history: {props.allClicks.join(" ")}</div>;
-};
-
-const Button = ({ onClick, text }) => <button onClick={onClick}>{text}</button>;
-
-const App = props => {
-    const [left, setLeft] = useState(0);
-    const [right, setRight] = useState(0);
-    const [allClicks, setAll] = useState([]);
-
-    // state HAS to be changed by a new object, not adding directly
-    const handleLeftClick = () => {
-        setAll(allClicks.concat("L"));
-        setLeft(left + 1);
+    const handleClickGood = () => {
+        setGood(good + 1);
     };
 
-    const handleRightClick = () => {
-        setAll(allClicks.concat("R"));
-        setRight(right + 1);
+    const handleClickNeutral = () => {
+        setNeutral(neutral + 1);
+    };
+
+    const handleClickBad = () => {
+        setBad(bad + 1);
     };
 
     return (
         <div>
-            <div>
-                {left}
-                <Button onClick={handleLeftClick} text="left" />
-                <Button onClick={handleRightClick} text="right" />
-                {right}
-                <History allClicks={allClicks} />
-            </div>
+            <h1>give feedback</h1>
+            <button onClick={handleClickGood}>good</button>
+            <button onClick={handleClickNeutral}>neutral</button>
+            <button onClick={handleClickBad}>bad</button>
+            <h1>statistics</h1>
+            <div>good {good}</div>
+            <div>neutral {neutral}</div>
+            <div>bad {bad}</div>
         </div>
     );
 };
